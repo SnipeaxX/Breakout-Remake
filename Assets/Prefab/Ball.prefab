@@ -120,6 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   speed: 1000
+  Score:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &-8865528914498903280
 BoxCollider2D:
   m_ObjectHideFlags: 0

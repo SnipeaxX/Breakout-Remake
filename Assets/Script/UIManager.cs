@@ -17,17 +17,26 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         SpawnBricksManager = GetComponent<SpawnBricksManager>();
+        healthManager = GetComponent<HealthManager>();
     }
 
-    private void Update()
+    public void UpdateLevelText()
     {
-        levelText.text = SpawnBricksManager.levelCount.ToString();
-        healthText.text = healthManager.health.ToString();
-        scoreText.text = score.ToString();
+        levelText.text = SpawnBricksManager.currentLevelCount.ToString();
 
-        if (SpawnBricksManager.levelCount >= 3)
+        if (SpawnBricksManager.currentLevelCount >= 3)
         {
             Debug.Log("Its Win");
         }
+    }
+
+    public void UpdateHealthText()
+    {
+        healthText.text = healthManager.currentHealth.ToString();
+    }
+
+    public void UpdateScore()
+    {
+        scoreText.text = score.ToString();
     }
 }

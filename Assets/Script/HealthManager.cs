@@ -1,27 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class HealthManager : MonoBehaviour
 {
     public BallManager ballManager;
 
-    public int health;
+    [Range(1,3)][SerializeField] private int startingHealth;
+    public int currentHealth;
+    [SerializeField] private int maxHealth = 3;
+
+    [SerializeField] private UnityEvent damageTaken;
 
     private void Awake()
     {
         ballManager = GetComponent<BallManager>();
+        currentHealth = startingHealth;
+        damageTaken.Invoke();
     }
 
-    private void Update()
+    public void TakeDamage(int damage)
     {
-        if (health <= 0)
+        ModifyHealth(damage);
+        damageTaken.Invoke();
+
+        if (startingHealth <= 0)
         {
             Debug.Log("Its Lost");
             ballManager.ballServed = true;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+    private void ModifyHealth(int value)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
+    }
+
 }

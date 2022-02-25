@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.Events;
 
 public class SpawnBricksManager : MonoBehaviour
 {
+    [Header("SpawnBrick")]
+    [SerializeField] private int raw;
+    [SerializeField] private int column;
     [SerializeField] private GameObject bricks;
+    public Color[] colors;
 
     public List<GameObject> level = new List<GameObject>();
 
-    [HideInInspector] public int levelCount;
+    private int startingLevelCount = 0;
+    [HideInInspector] public int currentLevelCount;
+    private int maxLevelCount = 3;
 
-    public Color[] colors;
+    [SerializeField] private UnityEvent levelCount;
 
     void Start()
     {
-        levelCount = 0;
+        currentLevelCount = startingLevelCount;
         SpawnBricks();
     }
 
@@ -29,9 +35,9 @@ public class SpawnBricksManager : MonoBehaviour
 
     public void SpawnBricks()
     {
-        for (int y = 0; y < 6; y++)
+        for (int y = 0; y < raw; y++)
         {
-            for (int x = 0; x < 20; x++)
+            for (int x = 0; x < column; x++)
             {
                 GameObject brick = Instantiate(bricks);
                 brick.transform.position = new Vector3(x * 1.5f, 4.5f - y * 0.75f, 0) + new Vector3(-14.25f, 0, 0);
@@ -54,6 +60,12 @@ public class SpawnBricksManager : MonoBehaviour
             }
         }
 
-        levelCount += 1;
+        ModifyLevelCount(1);
+        levelCount.Invoke();
+    }
+
+    private void ModifyLevelCount(int value)
+    {
+        currentLevelCount = Mathf.Clamp(currentLevelCount + value, 0, maxLevelCount);
     }
 }

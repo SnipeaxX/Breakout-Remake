@@ -9,7 +9,8 @@ public class BallController : MonoBehaviour
     private float direction;
     [SerializeField] private float speed;
 
-    private Vector3 inDirection;
+    private Vector2 inDirection;
+    private Vector2 currentSpeed;
 
     private HealthManager healthManager;
     private UIManager uiManager;
@@ -48,6 +49,7 @@ public class BallController : MonoBehaviour
     private void Update()
     {
         inDirection = rb.velocity;
+        currentSpeed = rb.velocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -59,6 +61,7 @@ public class BallController : MonoBehaviour
         {
             Destroy(collision.collider.gameObject);
             uiManager.score += collision.collider.GetComponent<BrickPoint>().point;
+            uiManager.UpdateScore();
             uiManager.SpawnBricksManager.level.Remove(collision.collider.gameObject);
         }
 
@@ -66,7 +69,7 @@ public class BallController : MonoBehaviour
         {
             Destroy(this.gameObject);
             healthManager.ballManager.ballServed = false;
-            healthManager.health -= 1;
+            healthManager.TakeDamage(-1);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BallManager : MonoBehaviour
+public class SpawnBallManager : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D boxCollider2D;
 

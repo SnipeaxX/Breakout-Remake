@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class HealthManager : MonoBehaviour
 {
-    public BallManager ballManager;
+    public SpawnBallManager ballManager;
 
     [Range(1,3)][SerializeField] private int startingHealth;
     public int currentHealth;
@@ -16,7 +16,7 @@ public class HealthManager : MonoBehaviour
 
     private void Awake()
     {
-        ballManager = GetComponent<BallManager>();
+        ballManager = GetComponent<SpawnBallManager>();
         currentHealth = startingHealth;
         damageTaken.Invoke();
     }

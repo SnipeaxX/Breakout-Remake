@@ -10,7 +10,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private float speed;
 
     private Vector2 inDirection;
-    private Vector2 currentSpeed;
+    private Vector2 force;
 
     private HealthManager healthManager;
     private UIManager uiManager;
@@ -29,7 +29,7 @@ public class BallController : MonoBehaviour
     
     private void SetRandomTrajectory()
     {
-        Vector2 force = Vector2.zero;
+        force = Vector2.zero;
         direction = Random.Range(-1, 1);
 
         if (direction < 0)
@@ -49,7 +49,6 @@ public class BallController : MonoBehaviour
     private void Update()
     {
         inDirection = rb.velocity;
-        currentSpeed = rb.velocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -60,6 +59,7 @@ public class BallController : MonoBehaviour
         if (collision.collider.gameObject.tag == "Brick")
         {
             Destroy(collision.collider.gameObject);
+
             uiManager.score += collision.collider.GetComponent<BrickPoint>().point;
             uiManager.UpdateScore();
             uiManager.SpawnBricksManager.level.Remove(collision.collider.gameObject);
@@ -68,6 +68,7 @@ public class BallController : MonoBehaviour
         if (collision.collider.gameObject.tag == "Death")
         {
             Destroy(this.gameObject);
+
             healthManager.ballManager.ballServed = false;
             healthManager.TakeDamage(-1);
         }

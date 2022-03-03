@@ -7,7 +7,8 @@ public class SpawnBallManager : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D boxCollider2D;
 
-    [SerializeField] private GameObject ball;
+    [SerializeField] private GameObject ballPrefab;
+    [HideInInspector] public GameObject ball;
 
     public bool ballServed = false;
 
@@ -15,10 +16,15 @@ public class SpawnBallManager : MonoBehaviour
     {
         if (context.performed && !ballServed)
         {
-            Vector2 pos = GetRandomPointInCollider();
-            Instantiate(ball, pos, Quaternion.identity);
-            ballServed = true;
+            SpawnBall();
         }
+    }
+
+    public void SpawnBall()
+    {
+        Vector2 pos = GetRandomPointInCollider();
+        ball = Instantiate(ballPrefab, pos, Quaternion.identity);
+        ballServed = true;
     }
 
     private Vector3 GetRandomPointInCollider()

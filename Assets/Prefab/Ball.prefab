@@ -95,15 +95,15 @@ Rigidbody2D:
   m_GameObject: {fileID: 7329008209684265925}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5ac74f6e3d21068489b97951c95d8700, type: 2}
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &3386298292084770793
@@ -119,10 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  speed: 1000
-  Score:
-    m_PersistentCalls:
-      m_Calls: []
+  speed: 10
 --- !u!61 &-8865528914498903280
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -132,7 +129,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7329008209684265925}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5ac74f6e3d21068489b97951c95d8700, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

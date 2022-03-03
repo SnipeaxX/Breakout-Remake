@@ -8,8 +8,9 @@ public class BallController : MonoBehaviour
 
     private float direction;
     [SerializeField] private float speed;
+    private float minVelocity = 10;
 
-    private Vector2 inDirection;
+    private Vector2 lastFrameVelocity;
     private Vector2 force;
 
     private HealthManager healthManager;
@@ -20,6 +21,8 @@ public class BallController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         healthManager = GameObject.Find("GameManager").GetComponent<HealthManager>();
         uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
+
+        
     }
 
     private void OnEnable()
@@ -43,18 +46,18 @@ public class BallController : MonoBehaviour
 
         force.y = -1f;
 
-        rb.velocity = force * speed * Time.deltaTime;
+        rb.velocity = force * (speed + uiManager.score / 100);
     }
 
     private void Update()
     {
-        inDirection = rb.velocity;
+        lastFrameVelocity = rb.velocity;
+        Debug.Log(rb.velocity);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        ContactPoint2D cp = collision.contacts[0];
-        rb.velocity = Vector3.Reflect(inDirection, cp.normal);
+        Bounce(collision.contacts[0].normal);
 
         if (collision.collider.gameObject.tag == "Brick")
         {
@@ -72,5 +75,12 @@ public class BallController : MonoBehaviour
             healthManager.ballManager.ballServed = false;
             healthManager.TakeDamage(-1);
         }
+    }
+
+    private void Bounce(Vector2 collisionNormal)
+    {
+        Vector3 direction = Vector3.Reflect(lastFrameVelocity, collisionNormal);
+
+        rb.velocity = direction.normalized * Mathf.Max(speed + (uiManager.score / 100), minVelocity);
     }
 }

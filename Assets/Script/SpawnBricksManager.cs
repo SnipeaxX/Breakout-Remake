@@ -19,6 +19,13 @@ public class SpawnBricksManager : MonoBehaviour
 
     [SerializeField] private UnityEvent levelCount;
 
+    private SpawnBallManager spawnBall;
+
+    private void Awake()
+    {
+        spawnBall = GetComponent<SpawnBallManager>();
+    }
+
     void Start()
     {
         currentLevelCount = startingLevelCount;
@@ -29,7 +36,9 @@ public class SpawnBricksManager : MonoBehaviour
     {
         if (level.Count == 0)
         {
+            Destroy(spawnBall.ball);
             SpawnBricks();
+            spawnBall.SpawnBall();
         }
     }
 

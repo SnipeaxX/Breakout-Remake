@@ -1678,6 +1678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider2D: {fileID: 1788501790}
+  ballPrefab: {fileID: 7329008209684265925, guid: 39e548c41e0524e499efc13779727460, type: 3}
   ball: {fileID: 7329008209684265925, guid: 39e548c41e0524e499efc13779727460, type: 3}
   ballServed: 0
 --- !u!114 &1788501793

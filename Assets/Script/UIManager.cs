@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     public TMP_Text scoreText;
 
-    public int score;
+    public float score;
 
     private void Awake()
     {

@@ -6,23 +6,22 @@ public class BallController : MonoBehaviour
 {
     [HideInInspector] public Rigidbody2D rb;
 
-    private float direction;
     [SerializeField] private float speed;
     private float minVelocity = 10;
 
     private Vector2 lastFrameVelocity;
-    private Vector2 force;
 
     private HealthManager healthManager;
     private UIManager uiManager;
+    private SoundManager soundManager;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
         healthManager = GameObject.Find("GameManager").GetComponent<HealthManager>();
         uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
-
-        
+        soundManager = GameObject.Find("GameManager").GetComponent<SoundManager>();
     }
 
     private void OnEnable()
@@ -32,21 +31,21 @@ public class BallController : MonoBehaviour
     
     private void SetRandomTrajectory()
     {
-        force = Vector2.zero;
-        direction = Random.Range(-1, 1);
+        Vector2 direction = Vector2.zero;
+        float leftOrRight = Random.Range(-1, 1);
 
-        if (direction < 0)
+        if (leftOrRight < 0)
         {
-            force.x = -1;
+            direction.x = -1;
         }
         else
         {
-            force.x = 1;
+            direction.x = 1;
         }
 
-        force.y = -1f;
+        direction.y = -1f;
 
-        rb.velocity = force * (speed + uiManager.score / 100);
+        ModifyVelocity(direction);
     }
 
     private void Update()
@@ -59,28 +58,42 @@ public class BallController : MonoBehaviour
     {
         Bounce(collision.contacts[0].normal);
 
-        if (collision.collider.gameObject.tag == "Brick")
+        if (collision.collider.gameObject.CompareTag("Brick"))
         {
             Destroy(collision.collider.gameObject);
+
+            soundManager.OnHitBrick();
 
             uiManager.score += collision.collider.GetComponent<BrickPoint>().point;
             uiManager.UpdateScore();
             uiManager.SpawnBricksManager.level.Remove(collision.collider.gameObject);
         }
 
-        if (collision.collider.gameObject.tag == "Death")
+        if (collision.collider.gameObject.CompareTag("Death"))
         {
             Destroy(this.gameObject);
 
+            soundManager.OnHitDeadZone();
+
             healthManager.ballManager.ballServed = false;
             healthManager.TakeDamage(-1);
+        }
+
+        if (collision.collider.gameObject.CompareTag("Wall") || collision.collider.gameObject.CompareTag("Player"))
+        {
+            soundManager.OnHitWall();
         }
     }
 
     private void Bounce(Vector2 collisionNormal)
     {
-        Vector3 direction = Vector3.Reflect(lastFrameVelocity, collisionNormal);
+        Vector2 direction = Vector3.Reflect(lastFrameVelocity, collisionNormal);
 
+        ModifyVelocity(direction);
+    }
+
+    private void ModifyVelocity(Vector2 direction)
+    {
         rb.velocity = direction.normalized * Mathf.Max(speed + (uiManager.score / 100), minVelocity);
     }
 }

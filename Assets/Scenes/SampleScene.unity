@@ -1002,8 +1002,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bba2ca0bbded1a46a81cd9b36455df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pixelsPos: []
-  bleuLine: {x: 0, y: 0.375}
+  cam: {fileID: 519420031}
+  pixelWorldPos: {x: 0, y: 0}
+  bleuLine: 0.125
+  greenLine: 0
+  yellowLine: 0
+  orangeLine: 0
+  orangeRedLine: 0
+  redLine: 0
 --- !u!1 &476674463
 GameObject:
   m_ObjectHideFlags: 0

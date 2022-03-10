@@ -49,7 +49,7 @@ public class SpawnBricksManager : MonoBehaviour
             for (int x = 0; x < column; x++)
             {
                 GameObject brick = Instantiate(bricks);
-                brick.transform.position = new Vector3(x * 1.5f, 4.5f - y * 0.75f, 0) + new Vector3(-14.25f, 0, 0);
+                brick.transform.position = new Vector3(x * 1.5f, 4.5f - y * 0.5f, 0) + new Vector3(-10.5f, 0, 0);
                 brick.GetComponent<SpriteRenderer>().color = colors[y];
 
                 level.Add(brick);

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7329008209684265930}
   - component: {fileID: -8865528914498903280}
   - component: {fileID: 3386298292084770793}
+  - component: {fileID: 471701241}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.7372549, g: 0.26666668, b: 0.26666668, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,7 +102,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 5ac74f6e3d21068489b97951c95d8700, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -115,7 +116,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7329008209684265925}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5ac74f6e3d21068489b97951c95d8700, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -146,3 +147,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   speed: 15
+--- !u!114 &471701241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329008209684265925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bba2ca0bbded1a46a81cd9b36455df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorDef:
+  - limit: 0.125
+    color: {r: 0.25882354, g: 0.27058825, b: 0.81568635, a: 1}
+  - limit: 0.675
+    color: {r: 0.14117648, g: 0.6313726, b: 0.23137257, a: 1}
+  - limit: 1.125
+    color: {r: 0.6431373, g: 0.6313726, b: 0, a: 1}
+  - limit: 1.675
+    color: {r: 0.7411765, g: 0.47058827, b: 0.07058824, a: 1}
+  - limit: 2.125
+    color: {r: 0.8313726, g: 0.39607847, b: 0.16862746, a: 1}
+  - limit: 2.675
+    color: {r: 0.85098046, g: 0.227451, b: 0.25490198, a: 1}
+  PPU: 200

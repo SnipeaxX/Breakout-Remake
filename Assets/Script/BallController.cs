@@ -51,7 +51,17 @@ public class BallController : MonoBehaviour
     private void Update()
     {
         lastFrameVelocity = rb.velocity;
-        Debug.Log(rb.velocity);
+    }
+    private void Bounce(Vector2 collisionNormal)
+    {
+        Vector2 direction = Vector3.Reflect(lastFrameVelocity, collisionNormal);
+
+        ModifyVelocity(direction);
+    }
+
+    private void ModifyVelocity(Vector2 direction)
+    {
+        rb.velocity = direction.normalized * Mathf.Max(speed + (uiManager.score / 100), minVelocity);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -62,7 +72,7 @@ public class BallController : MonoBehaviour
         {
             Destroy(collision.collider.gameObject);
 
-            soundManager.OnHitBrick();
+            soundManager.OnHitBrick(collision.collider.GetComponent<BrickPoint>().point);
 
             uiManager.score += collision.collider.GetComponent<BrickPoint>().point;
             uiManager.UpdateScore();
@@ -79,21 +89,15 @@ public class BallController : MonoBehaviour
             healthManager.TakeDamage(-1);
         }
 
-        if (collision.collider.gameObject.CompareTag("Wall") || collision.collider.gameObject.CompareTag("Player"))
+        if (collision.collider.gameObject.CompareTag("Wall"))
         {
             soundManager.OnHitWall();
         }
+
+        if (collision.collider.gameObject.CompareTag("Player"))
+        {
+            soundManager.OnHitPaddle();
+        }
     }
 
-    private void Bounce(Vector2 collisionNormal)
-    {
-        Vector2 direction = Vector3.Reflect(lastFrameVelocity, collisionNormal);
-
-        ModifyVelocity(direction);
-    }
-
-    private void ModifyVelocity(Vector2 direction)
-    {
-        rb.velocity = direction.normalized * Mathf.Max(speed + (uiManager.score / 100), minVelocity);
-    }
 }

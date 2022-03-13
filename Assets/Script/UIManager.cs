@@ -37,6 +37,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString("000");
     }
 }

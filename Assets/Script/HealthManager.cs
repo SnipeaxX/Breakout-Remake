@@ -17,21 +17,23 @@ public class HealthManager : MonoBehaviour
     private void Awake()
     {
         ballManager = GetComponent<SpawnBallManager>();
+        maxHealth = startingHealth;
         currentHealth = startingHealth;
         damageTaken.Invoke();
     }
 
     public void TakeDamage(int damage)
     {
-        ModifyHealth(damage);
-        damageTaken.Invoke();
 
-        if (startingHealth <= 0)
+        if (currentHealth <= 0)
         {
             Debug.Log("Its Lost");
             ballManager.ballServed = true;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        ModifyHealth(damage);
+        damageTaken.Invoke();
     }
 
     private void ModifyHealth(int value)

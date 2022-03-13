@@ -160,16 +160,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorDef:
-  - limit: 0.125
+  - limit: 1.5
     color: {r: 0.25882354, g: 0.27058825, b: 0.81568635, a: 1}
-  - limit: 0.675
+  - limit: 2
     color: {r: 0.14117648, g: 0.6313726, b: 0.23137257, a: 1}
-  - limit: 1.125
+  - limit: 2.5
     color: {r: 0.6431373, g: 0.6313726, b: 0, a: 1}
-  - limit: 1.675
+  - limit: 3
     color: {r: 0.7411765, g: 0.47058827, b: 0.07058824, a: 1}
-  - limit: 2.125
+  - limit: 3.5
     color: {r: 0.8313726, g: 0.39607847, b: 0.16862746, a: 1}
-  - limit: 2.675
+  - limit: 4
     color: {r: 0.85098046, g: 0.227451, b: 0.25490198, a: 1}
   PPU: 200

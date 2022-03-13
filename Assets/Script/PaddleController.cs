@@ -19,7 +19,7 @@ public class PaddleController : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(transform.position.x, -13, 13);
+        pos.x = Mathf.Clamp(transform.position.x, -9.75f, 9.75f);
         transform.position = pos;
     }
 

@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip hitSound;
     [SerializeField] private AudioClip looseSound;
 
+    private float pitch;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -16,19 +17,9 @@ public class SoundManager : MonoBehaviour
 
     public void OnHitBrick(float brickPoint)
     {
-        if (brickPoint == 1)
-        {
-            audioSource.pitch = 1.5f;
-        }
-        else if (brickPoint == 4)
-        {
-            audioSource.pitch = 2f;
-        }
-        else if (brickPoint == 7)
-        {
-            audioSource.pitch = 2.5f;
-        }
-
+        //fonction affine y= ax + b
+        pitch = 0.17f * brickPoint + 1.33f;
+        audioSource.pitch = pitch;
         audioSource.PlayOneShot(hitSound);
     }
     public void OnHitPaddle()

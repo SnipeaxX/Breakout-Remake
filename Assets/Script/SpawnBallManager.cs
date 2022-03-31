@@ -12,9 +12,16 @@ public class SpawnBallManager : MonoBehaviour
 
     public bool ballServed = false;
 
+    private UIManager uiManager;
+
+    private void Awake()
+    {
+        uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
+    }
+
     public void Launch(InputAction.CallbackContext context)
     {
-        if (context.performed && !ballServed)
+        if (context.performed && !ballServed && uiManager.menuActivate == false)
         {
             SpawnBall();
         }

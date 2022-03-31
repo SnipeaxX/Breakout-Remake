@@ -24,7 +24,6 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-
         if (currentHealth <= 0)
         {
             Debug.Log("Its Lost");

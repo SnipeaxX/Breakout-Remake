@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip looseSound;
 
     private float pitch;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();

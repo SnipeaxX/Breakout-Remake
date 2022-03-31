@@ -10,10 +10,12 @@ public class BallController : MonoBehaviour
     private float minVelocity = 10;
 
     private Vector2 lastFrameVelocity;
+    private Vector2 startDirection;
 
     private HealthManager healthManager;
     private UIManager uiManager;
     private SoundManager soundManager;
+    private SpawnBallManager spawnBallManager;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class BallController : MonoBehaviour
         healthManager = GameObject.Find("GameManager").GetComponent<HealthManager>();
         uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
         soundManager = GameObject.Find("GameManager").GetComponent<SoundManager>();
+        spawnBallManager = GameObject.Find("GameManager").GetComponent<SpawnBallManager>();
     }
 
     private void OnEnable()
@@ -31,27 +34,28 @@ public class BallController : MonoBehaviour
     
     private void SetRandomTrajectory()
     {
-        Vector2 direction = Vector2.zero;
+        startDirection = Vector2.zero;
         float leftOrRight = Random.Range(-1, 1);
 
         if (leftOrRight < 0)
         {
-            direction.x = -1;
+            startDirection.x = -1;
         }
         else
         {
-            direction.x = 1;
+            startDirection.x = 1;
         }
 
-        direction.y = -1f;
+        startDirection.y = -1f;
 
-        ModifyVelocity(direction);
+        ModifyVelocity(startDirection);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         lastFrameVelocity = rb.velocity;
     }
+
     private void Bounce(Vector2 collisionNormal)
     {
         Vector2 direction = Vector3.Reflect(lastFrameVelocity, collisionNormal);

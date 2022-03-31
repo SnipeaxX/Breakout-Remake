@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,12 +15,24 @@ public class UIManager : MonoBehaviour
 
     public float score;
 
+    [SerializeField] private GameObject buttonRestart;
+
+    public bool menuActivate;
+
     private void Awake()
     {
         SpawnBricksManager = GetComponent<SpawnBricksManager>();
         healthManager = GetComponent<HealthManager>();
     }
 
+    public void OnShowUI(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            buttonRestart.SetActive(buttonRestart.activeSelf == false ? true : false);
+            Time.timeScale = buttonRestart.activeSelf == true ? Time.timeScale = 0 : 1;
+        }
+    }
     public void UpdateLevelText()
     {
         levelText.text = SpawnBricksManager.currentLevelCount.ToString();

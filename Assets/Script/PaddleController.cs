@@ -32,23 +32,21 @@ public class PaddleController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        direction = context.ReadValue<Vector2>().x;
+        direction = context.ReadValue<float>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BallController ball = collision.gameObject.GetComponent<BallController>();
-
-        if (ball == null)
-            return;
-
-        Vector2 ballDir = (transform.position - ball.transform.position);
-
-        if (ballDir.magnitude > offsetPaddle && Mathf.Sign(ballDir.x) == Mathf.Sign(ball.rb.velocity.x))
+        if(collision.gameObject.TryGetComponent<BallController>(out BallController ball))
         {
-            Vector2 ballVelocityX = ball.rb.velocity;
-            ballVelocityX.x *= -1;
-            ball.rb.velocity = ballVelocityX;
+            Vector2 ballDir = (transform.position - ball.transform.position);
+
+            if (ballDir.magnitude > offsetPaddle && Mathf.Sign(ballDir.x) == Mathf.Sign(ball.rb.velocity.x))
+            {
+                Vector2 ballVelocity = ball.rb.velocity;
+                ballVelocity.x *= -1;
+                ball.rb.velocity = ballVelocity;
+            }
         }
     }
 }

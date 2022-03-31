@@ -32,17 +32,9 @@ public class BallController : MonoBehaviour
     private void SetRandomTrajectory()
     {
         Vector2 direction = Vector2.zero;
-        float leftOrRight = Random.Range(-1, 1);
+        int leftOrRight = Random.Range(-1, 1);
 
-        if (leftOrRight < 0)
-        {
-            direction.x = -1;
-        }
-        else
-        {
-            direction.x = 1;
-        }
-
+        direction.x = leftOrRight < 0 ? -1 : 1;
         direction.y = -1f;
 
         ModifyVelocity(direction);

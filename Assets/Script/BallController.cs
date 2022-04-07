@@ -80,7 +80,7 @@ public class BallController : MonoBehaviour
 
             uiManager.score += collision.collider.GetComponent<BrickPoint>().point;
             uiManager.UpdateScore();
-            uiManager.SpawnBricksManager.level.Remove(collision.collider.gameObject);
+            uiManager.spawnBrickManager.level.Remove(collision.collider.gameObject);
         }
 
         if (collision.collider.gameObject.CompareTag("Death"))

@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
-    public SpawnBricksManager SpawnBricksManager;
+    public SpawnBricksManager spawnBrickManager;
     private HealthManager healthManager;
+    public SpawnBallManager spawnBallManager;
 
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text healthText;
@@ -16,13 +17,23 @@ public class UIManager : MonoBehaviour
     public float score;
 
     [SerializeField] private GameObject buttonRestart;
+    [SerializeField] private GameObject launchUI;
 
     public bool menuActivate;
 
     private void Awake()
     {
-        SpawnBricksManager = GetComponent<SpawnBricksManager>();
+        spawnBrickManager = GetComponent<SpawnBricksManager>();
         healthManager = GetComponent<HealthManager>();
+        spawnBallManager = GetComponent<SpawnBallManager>();
+    }
+
+    private void Update()
+    {
+        if (spawnBallManager.ballServed == false)
+            launchUI.SetActive(true);
+        else
+            launchUI.SetActive(false);
     }
 
     public void OnShowUI(InputAction.CallbackContext context)
@@ -35,9 +46,9 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateLevelText()
     {
-        levelText.text = SpawnBricksManager.currentLevelCount.ToString();
+        levelText.text = spawnBrickManager.currentLevelCount.ToString();
 
-        if (SpawnBricksManager.currentLevelCount >= 3)
+        if (spawnBrickManager.currentLevelCount >= 3)
         {
             Debug.Log("Its Win");
         }
